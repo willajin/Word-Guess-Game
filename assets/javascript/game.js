@@ -101,7 +101,7 @@ function matchLetter(input) {
     checkWin();
 };
 
-// check if user win and reset game
+// check if user wins and reset game
 function checkWin() {
     if(currentWord.indexOf("_") === -1) {
         wins++;

@@ -1,0 +1,25 @@
+body {
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    background-color: #e6e6e6;
+    padding: 10px;
+}
+
+#instructions {
+    background-color: #999999;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 5px;
+}
+
+#stats {
+    width: 30%;
+    border: 2px solid #4d4d4d;
+    padding: 5px 20px 5px 20px;
+}
+
+#picture {
+    width: 100px;
+    height: 100px;
+}
