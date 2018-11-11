@@ -7,17 +7,25 @@ var winsElem = document.getElementById("wins");
 var currentWordElem = document.getElementById("current-Word");
 var remainingGuessesElem = document.getElementById("remaining-Guesses");
 var lettersGuessedElem = document.getElementById("letters-Guessed");
-var hasFinished = true;     // if game has finished (win or lose)
-var currentWordIndex;        // array index of current word
-var currentWord;
-var remainingGuesses;
-var lettersGuessed;
+var wins = 0;               // total number of wins
+var hasFinished;        // if game has finished (win or lose)
+var currentWordIndex;   // array index of current word
+var currentWord;        // current word to be guessed
+var remainingGuesses;   // remaining number of guesses
+var lettersGuessed;     // array of letters already guessed
 
 // update display
-function updateWord() {
+function updateDisplay() {
     remainingGuessesElem.textContent = remainingGuesses;
     lettersGuessedElem.textContent = lettersGuessed;
     currentWordElem.textContent = currentWord;
+    winsElem.textContent = wins;
+
+    // check if game is finished
+    if (remainingGuesses <= 0) {
+        hasFinished = true;
+        console.log(hasFinished);
+    }
 }
 
 // initialize game with random word and cleared stats
@@ -32,7 +40,7 @@ function startGame() {
     console.log(currentWordIndex);
 
     // display current word
-    updateWord();
+    updateDisplay();
     console.log(words[currentWordIndex]);
     console.log(currentWord);
 
@@ -43,33 +51,62 @@ function startGame() {
     currentWordElem.textContent = currentWord.join(" ");
 }
 
-startGame();
-
 // get user key input (letter a-z)
-document.onkeyup = function(event) {
-    var input = (event.key).toLowerCase();
-    console.log(input);
-
-    // determine if key matches with letter in word  - indexOf currentWord
-    ////////////////////////////// how to store multiple matching inputs? - for loop
-    var index = words[currentWordIndex].indexOf(event.key);
-    console.log(index);
-
-    // if match, replace _ with letter textContent currentWord[foundIndex] = event.key
-    if (index > -1) {
-        currentWord[index] = input;
-        //currentWordElem.textContent = currentWord;
+document.onkeyup = function (event) {
+    // check if game has finished
+    // reset game if finished
+    if (hasFinished) {
+        startGame();
+        hasFinished = false;
     }
+    // continue game if not finished
+    // check if input is a-z
+    else if (event.keyCode >= 65 && event.keyCode <= 90) {
+        matchLetter(event.key.toLowerCase());
+    }
+};
 
-    // if not match, decrease number of guesses remaining
-    // add letters guessed to an array
-    ////////////////////////// remove letters already guessed - .splice
-    else {
-        remainingGuesses--;
+// determine if input matches with letter in word
+function matchLetter(input) {
+    var indexes = [];
+    // check if user has remaining guesses
+    if (remainingGuesses > 0) {
+        hasFinished = false;
+    }
+    // check if input was already guessed
+    if (lettersGuessed.indexOf(input) === -1) {
         lettersGuessed.push(input);
-    }
-    updateWord();
-}
 
-////////////////////////// check if user wins or loses
-// then reset game and display new word or continue playing
+        // check if input matches with any instances of letter in current word
+        // store matched positions in indexes array
+        for (var i = 0; i < words[currentWordIndex].length; i++) {
+            if (words[currentWordIndex][i] === input) {
+                indexes.push(i);
+            }
+        }
+
+        // if match, push matched letters to current word
+        if (indexes.length > 0) {
+            for (var i = 0; i < indexes.length; i++) {
+                currentWord[indexes[i]] = input;
+            }
+        }
+        // if no match, decrease remaining guesses
+        else {
+            remainingGuesses--;
+        }
+
+    }
+    updateDisplay();
+    checkWin();
+};
+
+// check if user win and reset game
+function checkWin() {
+    if(currentWord.indexOf("_") === -1) {
+        wins++;
+        startGame();
+    }
+};
+
+startGame();
