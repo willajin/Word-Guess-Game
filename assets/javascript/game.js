@@ -7,12 +7,18 @@ var winsElem = document.getElementById("wins");
 var currentWordElem = document.getElementById("current-Word");
 var remainingGuessesElem = document.getElementById("remaining-Guesses");
 var lettersGuessedElem = document.getElementById("letters-Guessed");
+var youWon = document.getElementById("you-won-text");
+var youLose = document.getElementById("you-lose-text");
 var wins = 0;               // total number of wins
 var hasFinished;        // if game has finished (win or lose)
 var currentWordIndex;   // array index of current word
 var currentWord;        // current word to be guessed
 var remainingGuesses;   // remaining number of guesses
 var lettersGuessed;     // array of letters already guessed
+
+// hide messages
+youWon.style.cssText = "display: none";
+youLose.style.cssText = "display: none";
 
 // update display
 function updateDisplay() {
@@ -21,10 +27,10 @@ function updateDisplay() {
     currentWordElem.textContent = currentWord;
     winsElem.textContent = wins;
 
-    // check if game is finished
+    // check if user loses
     if (remainingGuesses <= 0) {
         hasFinished = true;
-        console.log(hasFinished);
+        youLose.style.cssText = "display: block";    // display 'you lose' message
     }
 }
 
@@ -34,6 +40,8 @@ function startGame() {
     currentWord = [];
     remainingGuesses = 10;
     lettersGuessed = [];
+    youWon.style.cssText = "display: none";
+    youLose.style.cssText = "display: none";
 
     // choose random index of word array
     currentWordIndex = Math.floor(Math.random() * words.length);
@@ -105,7 +113,8 @@ function matchLetter(input) {
 function checkWin() {
     if(currentWord.indexOf("_") === -1) {
         wins++;
-        startGame();
+        hasFinished = true;
+        youWon.style.cssText = "display: block";    // display 'you won' message
     }
 };
 
