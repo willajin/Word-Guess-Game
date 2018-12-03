@@ -9,6 +9,7 @@ var remainingGuessesElem = document.getElementById("remaining-Guesses");
 var lettersGuessedElem = document.getElementById("letters-Guessed");
 var youWon = document.getElementById("you-won-text");
 var youLose = document.getElementById("you-lose-text");
+var catImage = document.getElementById("cat-image");
 var wins = 0;               // total number of wins
 var hasFinished;        // if game has finished (win or lose)
 var currentWordIndex;   // array index of current word
@@ -19,6 +20,15 @@ var lettersGuessed;     // array of letters already guessed
 // hide messages
 youWon.style.cssText = "display: none";
 youLose.style.cssText = "display: none";
+// hide images
+siberian.style = "display: none";
+ragdoll.style = "display: none";
+munchkin.style = "display: none";
+bengal.style = "display: none";
+chartreux.style = "display: none";
+scottishfold.style = "display: none";
+korat.style = "display: none";
+persian.style = "display: none";
 
 // update display
 function updateDisplay() {
@@ -42,6 +52,14 @@ function startGame() {
     lettersGuessed = [];
     youWon.style.cssText = "display: none";
     youLose.style.cssText = "display: none";
+    siberian.style = "display: none";
+    ragdoll.style = "display: none";
+    munchkin.style = "display: none";
+    bengal.style = "display: none";
+    chartreux.style = "display: none";
+    scottishfold.style = "display: none";
+    korat.style = "display: none";
+    persian.style = "display: none";
 
     // choose random index of word array
     currentWordIndex = Math.floor(Math.random() * words.length);
@@ -111,10 +129,42 @@ function matchLetter(input) {
 
 // check if user wins and reset game
 function checkWin() {
-    if(currentWord.indexOf("_") === -1) {
+    if (currentWord.indexOf("_") === -1) {
         wins++;
         hasFinished = true;
         youWon.style.cssText = "display: block";    // display 'you won' message
+
+        if (currentWordIndex === 0) {
+            siberian.style = "display: block";
+        }
+
+        else if (currentWordIndex === 1) {
+            ragdoll.style = "display: block";
+        }
+
+        else if (currentWordIndex === 2) {
+            munchkin.style = "display: block";
+        }
+
+        else if (currentWordIndex === 3) {
+            bengal.style = "display: block";
+        }
+
+        else if (currentWordIndex === 4) {
+            chartreux.style = "display: block";
+        }
+
+        else if (currentWordIndex === 5) {
+            scottishfold.style = "display: block";
+        }
+
+        else if (currentWordIndex === 6) {
+            korat.style = "display: block";
+        }
+
+        else if (currentWordIndex === 7) {
+            persian.style = "display: block";
+        }
     }
 };
 

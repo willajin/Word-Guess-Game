@@ -1,21 +1,39 @@
 body {
     width: 100%;
     font-family: 'Raleway', sans-serif;
-    background-color: #e6e6e6;
     padding: 10px;
 }
 
-#instructions {
-    background-color: #999999;
-    color: white;
+.jumbotron {
+    background-color: white;
+}
+
+#cat-header {
+    padding-right: 15px;
+}
+
+.display-4 {
     text-transform: uppercase;
-    font-weight: bold;
-    padding: 5px;
+    letter-spacing: 5px;
+    font-size: 40px;
+}
+
+.lead {
+    color: gray;
+    letter-spacing: 8px;
+    font-family: 'Scheherazade', serif;
+    color: #b785a7;
 }
 
 .row {
-    border: 2px solid #4d4d4d;
-    padding: 10px 20px 10px 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.cat-image {
+    width: 200px;
+    height: 200px;
 }
 
 
